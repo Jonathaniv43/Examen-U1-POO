@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Examen.API.Dtos.Grades
 {
-    public class GradesDto : StudentDto
+    public class GradesDto 
     {
         public Guid Id { get; set; }
 

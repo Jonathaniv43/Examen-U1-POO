@@ -25,13 +25,16 @@ namespace Examen.API.Controllers
         public async Task<ActionResult> Get(Guid id)
         {
             var student = await _studentsService.GetStudentByIdAsync(id);
+            
 
             if (student == null)
             {
-                return NotFound(new { Message = $"No se encontro la categoría: {id}" });
+                return NotFound(new { Message = $"No se encontro el estudiante: {id}" });
             }
 
             return Ok(student);
+
+
         }
     }
 }

@@ -10,38 +10,20 @@ namespace Examen.API.Services
     {
         public readonly string _JSON_FILE;
 
-        public Task<List<GradesDto>> GetStudentsListAsync()
+        public GradesService()
         {
-            if (!File.Exists(_JSON_FILE))
-            {
-                return new List<GradesDto>();
-            }
-            var json = await File.ReadAllTextAsync(_JSON_FILE);
+            _JSON_FILE = "SeedData/grades.json";
+        }
+        public async Task<List<GradesDto>> GetGradesListAsync()
+        {
+            return await ReadGradesFromFileAsync();
 
-            var students = JsonConvert.DeserializeObject<List<GradesDto>>(json);
-            {
-                var dtos = students.Select(x => new GradesDto
-                {
-                    Id = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    GradeId = x.GradeId,
-                    Asignment = x.Asignment,
-                    Grade = x.Grade,
-
-
-                });.ToList();
-                return dtos;
-            }
         }
 
-            public GradesService()
-        {
-            _JSON_FILE = "SeedData/students.json";
-        }
+       
         public Task<bool> CreateAsync(GradesCreateDto dto)
         {
-            
+            throw new NotImplementedException();
         }
 
         public Task<bool> DeleteAsync(Guid id)
@@ -54,12 +36,35 @@ namespace Examen.API.Services
             throw new NotImplementedException();
         }
 
-        public Task<GradesDto> GetStudentByIdAsync(Guid id)
+        public Task<GradesDto> GetGradesByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        
+        private async Task<List<GradesDto>> ReadGradesFromFileAsync()
+        {
+            if (!File.Exists(_JSON_FILE))
+            {
+                return new List<GradesDto>();
+            }
+            var json = await File.ReadAllTextAsync(_JSON_FILE);
+
+            var grades = JsonConvert.DeserializeObject<List<Grades>>(json);
+            {
+                var dtos = grades.Select(x => new GradesDto
+                {
+                    Id = x.Id,
+                    GradeId = x.GradeId,
+                    Asignment = x.Asignment,
+                    Grade = x.Grade,
+
+
+                }).ToList();
+                return dtos;
+
+            }
         }
-    }
+
+        
+    } 
 }

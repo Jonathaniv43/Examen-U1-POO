@@ -1,4 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Examen.API.Services;
+using Examen.API.Database;
+using Examen.API.Services.Interfaces;
+
 
 namespace Examen.API
 {
@@ -18,7 +22,9 @@ namespace Examen.API
             services.AddSwaggerGen();
 
             // Add custom services
-           // services.AddTransient<ICategoriesService, CategoriesService>();
+            // Add custom services
+            services.AddTransient<IStudentsService, StudentsService>();
+            services.AddTransient<IGradesService, GradesService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
